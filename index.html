@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowHabit - Controle de Hábitos e Tarefas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo">FH</div>
+          <div>
+            <h1>FlowHabit</h1>
+            <p>Foco, rotina e progresso</p>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <button class="menu-item active" data-tab="dashboard">Dashboard</button>
+          <button class="menu-item" data-tab="tarefas">Tarefas</button>
+          <button class="menu-item" data-tab="habitos">Hábitos</button>
+          <button class="menu-item" data-tab="estudos">Estudos</button>
+          <button class="menu-item" data-tab="financeiro">Financeiro</button>
+          <button class="menu-item" data-tab="academia">Academia</button>
+          <button class="menu-item" data-tab="calendario">Calendário</button>
+          <button class="menu-item" data-tab="categorias">Categorias</button>
+          <button class="menu-item" data-tab="configuracoes">Configurações</button>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <header class="topbar card">
+          <div>
+            <h2 id="currentView">Dashboard</h2>
+            <p id="todayLabel"></p>
+          </div>
+          <div class="badge" id="streakBadge">🔥 Sequência: 0 dias</div>
+        </header>
+
+        <section id="dashboard" class="view active">
+          <div class="grid metrics">
+            <article class="card metric">
+              <h3>Tarefas concluídas</h3>
+              <p id="metricTasks">0%</p>
+            </article>
+            <article class="card metric">
+              <h3>Hábitos de hoje</h3>
+              <p id="metricHabits">0/0</p>
+            </article>
+            <article class="card metric">
+              <h3>Horas de estudo</h3>
+              <p id="metricStudy">0h</p>
+            </article>
+            <article class="card metric">
+              <h3>Saldo mensal</h3>
+              <p id="metricBalance">R$ 0,00</p>
+            </article>
+          </div>
+
+          <div class="grid two-cols">
+            <article class="card">
+              <h3>Próximas tarefas</h3>
+              <ul id="dashboardTasks" class="simple-list"></ul>
+            </article>
+            <article class="card">
+              <h3>Hábitos em andamento</h3>
+              <ul id="dashboardHabits" class="simple-list"></ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="tarefas" class="view">
+          <article class="card">
+            <h3>Nova tarefa</h3>
+            <form id="taskForm" class="form-grid">
+              <input name="title" placeholder="Ex: Revisar projeto" required />
+              <input name="due" type="date" required />
+              <select name="category" required>
+                <option value="">Categoria</option>
+                <option>Trabalho</option>
+                <option>Pessoal</option>
+                <option>Estudos</option>
+                <option>Financeiro</option>
+                <option>Academia</option>
+              </select>
+              <button type="submit">Adicionar</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Lista de tarefas</h3>
+            <ul id="taskList" class="item-list"></ul>
+          </article>
+        </section>
+
+        <section id="habitos" class="view">
+          <article class="card">
+            <h3>Novo hábito</h3>
+            <form id="habitForm" class="form-grid">
+              <input name="name" placeholder="Ex: Meditar 10 min" required />
+              <select name="frequency">
+                <option>Diário</option>
+                <option>5x semana</option>
+                <option>3x semana</option>
+              </select>
+              <button type="submit">Adicionar</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Hábitos</h3>
+            <ul id="habitList" class="item-list"></ul>
+          </article>
+        </section>
+
+        <section id="estudos" class="view">
+          <article class="card">
+            <h3>Registrar estudo</h3>
+            <form id="studyForm" class="form-grid">
+              <input name="subject" placeholder="Matéria / assunto" required />
+              <input name="hours" type="number" min="0.5" step="0.5" placeholder="Horas" required />
+              <button type="submit">Salvar</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Resumo de estudos</h3>
+            <ul id="studyList" class="item-list"></ul>
+          </article>
+        </section>
+
+        <section id="financeiro" class="view">
+          <article class="card">
+            <h3>Lançamento financeiro</h3>
+            <form id="financeForm" class="form-grid">
+              <input name="desc" placeholder="Descrição" required />
+              <input name="amount" type="number" step="0.01" placeholder="Valor" required />
+              <select name="type">
+                <option value="entrada">Entrada</option>
+                <option value="saida">Saída</option>
+              </select>
+              <button type="submit">Registrar</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Movimentações</h3>
+            <ul id="financeList" class="item-list"></ul>
+          </article>
+        </section>
+
+        <section id="academia" class="view">
+          <article class="card">
+            <h3>Treino da semana</h3>
+            <div class="chip-wrap" id="gymPlan"></div>
+          </article>
+          <article class="card">
+            <h3>Progresso</h3>
+            <p class="muted">Meta: 4 treinos por semana</p>
+            <div class="progress-track"><div class="progress-fill" id="gymProgress"></div></div>
+            <p id="gymProgressLabel">0/4 treinos</p>
+          </article>
+        </section>
+
+        <section id="calendario" class="view">
+          <article class="card">
+            <h3>Calendário mensal</h3>
+            <div class="calendar-header">
+              <button id="prevMonth">◀</button>
+              <strong id="calendarTitle"></strong>
+              <button id="nextMonth">▶</button>
+            </div>
+            <div id="calendarGrid" class="calendar-grid"></div>
+          </article>
+        </section>
+
+        <section id="categorias" class="view">
+          <article class="card">
+            <h3>Categorias ativas</h3>
+            <div id="categoryTags" class="chip-wrap"></div>
+          </article>
+        </section>
+
+        <section id="configuracoes" class="view">
+          <article class="card">
+            <h3>Configurações</h3>
+            <div class="settings-row">
+              <label for="themeToggle">Tema escuro</label>
+              <input id="themeToggle" type="checkbox" />
+            </div>
+            <div class="settings-row">
+              <label for="resetData">Limpar dados locais</label>
+              <button id="resetData">Resetar</button>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
